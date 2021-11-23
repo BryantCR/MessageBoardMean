@@ -1,0 +1,71 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script type="text/javascript"></script>
+        <title>Form</title>
+    </head>
+    <body>
+        <div id="top">
+            <h1> Dojo Message Board </h1>
+        </div>
+        <form action="/message" method="POST">
+            <div>
+                <label> 
+                    Name: 
+                </label>
+                <input type="text" name="name">
+            </div>
+            <div>
+                <label>
+                    Message: 
+                </label>
+                <textarea name="message"></textarea>
+            </div>
+            <input id="post" type="submit" value="Post message">
+        </form>
+        <% if (typeof(errors) !== 'undefined' ) { %>
+            <% for (const key in errors) { %>
+                <h3><%= errors[key].message %></h3>
+            <% } %>
+        <% } else { %>
+            <div>
+                <% for(const message of messages) { %>
+                    <div>
+                        <h3>
+                            Name: <%= message.name %>
+                        </h3>
+                        <h3>
+                            Message: <%= message.message %>
+                        </h3>
+                        <% for (const comment of message._comments) { %>
+                            <h5>
+                                <%="Name: " + comment.name %>
+                            </h5>
+                            <h5>
+                                <%="Comment: " + comment.text %>
+                            </h5>
+                        <% } %>
+                        <form action='/comment/<%= message._id %>' method="POST">
+                            <div>
+                                <p class="margin">
+                                    Name: 
+                                </p>
+                                <input class="comment_input" type="text" name="name">
+                            </div>
+                            <div>
+                            <p class="margin">
+                                Comment: 
+                            </p>
+                            <textarea class="comment_text"name="comment"></textarea>
+                            </div>
+                            <input class="post2" type="submit" value="Post comment">
+                        </form>
+                    </div>
+                <% } %>
+            </div>
+        <% } %>
+    </body>
+</html>
