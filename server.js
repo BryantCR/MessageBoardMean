@@ -14,7 +14,7 @@ const Schema = mongoose.Schema;
 const MessageSchema = new mongoose.Schema({
 	name: String,
 	message: String,
-	_comments: [{type: Schema.Types.ObjectId, ref: 'Comment'}]
+	_comments: [{type: Schema.Types.ObjectId, ref: 'Comments'}]
 });
 
 MessageSchema.path('name').required(true, 'Name cannot be blank');
@@ -26,7 +26,7 @@ const Message = mongoose.model("Message");
 const CommentSchema = new mongoose.Schema({
 	name: String,
 	text: String,
-	_message: {type: Schema.Types.ObjectId, ref: 'Message'}
+	_message: {type: Schema.Types.ObjectId, ref: 'Messages'}
 });
 
 CommentSchema.path('name').required(true, 'Name cannot be blank');
@@ -74,7 +74,7 @@ app.post("/comment/:id", function(req, res) {
             newComment.save(function(err) {
                 if (err) {
                     console.log(err);
-                    res.render('index.ejs', { errors: newComment.errors });
+                    res.render('home', { errors: newComment.errors });
                 } else {
                     console.log("comment added");
                     res.redirect("/");
