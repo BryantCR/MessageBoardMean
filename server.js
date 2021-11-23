@@ -76,7 +76,7 @@ app.post("/addcomment/:id", function(req, res) {
                     console.log(err);
                     res.render('home', { errors: newComment.errors });
                 } else {
-                    console.log("comment added");
+                    console.log("Your comment have been added");
                     res.redirect("/");
                 }
             });
