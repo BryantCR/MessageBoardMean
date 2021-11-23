@@ -48,7 +48,10 @@
                                 <%="Comment: " + comment.text %>
                             </h5>
                         <% } %>
-                        <form action='/comment/<%= message._id %>' method="POST">
+                        <form action='/addcomment/<%= message._id %>' method="POST">
+                            <div>
+                                
+                            </div>
                             <div>
                                 <p class="margin">
                                     Name: 
@@ -61,7 +64,7 @@
                             </p>
                             <textarea class="comment_text"name="comment"></textarea>
                             </div>
-                            <input class="post2" type="submit" value="Post comment">
+                            <input class="post2" type="submit" value="Add comment">
                         </form>
                     </div>
                 <% } %>

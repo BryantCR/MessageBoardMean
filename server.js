@@ -19,9 +19,9 @@ const MessageSchema = new mongoose.Schema({
 
 MessageSchema.path('name').required(true, 'Name cannot be blank');
 MessageSchema.path('message').required(true, 'Message cannot be blank');
-mongoose.model("Message", MessageSchema);
+mongoose.model("Messages", MessageSchema);
 
-const Message = mongoose.model("Message");
+const Message = mongoose.model("Messages");
 
 const CommentSchema = new mongoose.Schema({
 	name: String,
@@ -31,14 +31,14 @@ const CommentSchema = new mongoose.Schema({
 
 CommentSchema.path('name').required(true, 'Name cannot be blank');
 CommentSchema.path('text').required(true, 'Comment cannot be blank');
-mongoose.model("Comment", CommentSchema);
+mongoose.model("Comments", CommentSchema);
 
-const Comment = mongoose.model("Comment");
+const Comment = mongoose.model("Comments");
 //-----------------------------------------------------------------------------------------
 
 app.get("/", function(req, res) {
 	Message
-        .find({}, false, true)
+        .find({}, false)
         .populate('_comments')
         .exec(function(err, messages) {
             res.render('home', { messages: messages });
@@ -62,7 +62,7 @@ app.post("/message", function(req, res){
         });
 });
 
-app.post("/comment/:id", function(req, res) {
+app.post("/addcomment/:id", function(req, res) {
 	const messageId = req.params.id;
 	Message
         .findOne({ _id: messageId }, function(err, message) {
@@ -83,13 +83,13 @@ app.post("/comment/:id", function(req, res) {
         });
 });
 
-mongoose.connect('mongodb://127.0.0.1/message_board', function(err, db) {
+mongoose.connect('mongodb://localhost/message_board_db', function(err, db) {
 	if (err) {
 		console.log("error");
 		console.log(err);
 	}
 });
 
-app.listen(8000, function() {
-	console.log("server running on port 8000");
+app.listen(8080, function() {
+	console.log("server running on port 8080");
 });
