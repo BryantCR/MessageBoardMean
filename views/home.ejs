@@ -26,11 +26,14 @@
             </div>
             <input id="post" type="submit" value="Post message">
         </form>
-        <% if (typeof(errors) !== 'undefined' ) { %>
-            <% for (const key in errors) { %>
-                <h3><%= errors[key].message %></h3>
-            <% } %>
-        <% } else { %>
+        <div style="display: flex; flex-direction: column; justify-content: center;">
+            <% if (typeof(errors) !== 'undefined' ) { %>
+                <% for (const key in errors) { %>
+                    <h3><%= errors[key].message %></h3>
+                <% } %>
+            <% } else { %>
+        </div>
+        
             <div>
                 <% for(const message of messages) { %>
                     <div>
@@ -50,7 +53,7 @@
                         <% } %>
                         <form action='/addcomment/<%= message._id %>' method="POST">
                             <div>
-                                
+
                             </div>
                             <div>
                                 <p class="margin">
